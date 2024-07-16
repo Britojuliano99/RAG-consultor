@@ -8,7 +8,7 @@ import streamlit as st
 
 
 API_KEY_PINECONE = st.secrets['API_KEY_PINECONE']
-OPENAI_API_KEY = st.secrets['OPENAI_API_KEY ']
+OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 GROQ_API_KEY= st.secrets['GROQ_API_KEY']
 
 client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
