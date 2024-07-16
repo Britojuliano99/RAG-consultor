@@ -15,13 +15,13 @@ client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
 
 pc = Pinecone(api_key=API_KEY_PINECONE)
 
-index_name="rag-comprimento-sentenca"
+index_name="rag-comprimento-sentenca-large
 
 client_Groq = Groq(
     api_key=GROQ_API_KEY,
 )
 
-def get_embedding(text: str, model="text-embedding-3-small", **kwargs) -> List[float]:
+def get_embedding(text: str, model="text-embedding-3-large", **kwargs) -> List[float]:
     # replace newlines, which can negatively affect performance.
     text = text.replace("\n", " ")
 
