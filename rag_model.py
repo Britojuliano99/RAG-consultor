@@ -5,12 +5,11 @@ from openai import OpenAI
 from pinecone.grpc import PineconeGRPC as Pinecone
 from pinecone import ServerlessSpec
 import streamlit as st
-try:
-    API_KEY_PINECONE = st.secrets['API_KEY_PINECONE']
-    OPENAI_API_KEY = st.secrets['OPENAI_API_KEY ']
-    GROQ_API_KEY= st.secrets['GROQ_API_KEY']
-except:
-    from chaves import *
+
+
+API_KEY_PINECONE = st.secrets['API_KEY_PINECONE']
+OPENAI_API_KEY = st.secrets['OPENAI_API_KEY ']
+GROQ_API_KEY= st.secrets['GROQ_API_KEY']
 
 client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
 
