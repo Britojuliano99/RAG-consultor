@@ -3,17 +3,18 @@ from rag_model import *
 
 INDEX_NAME=''
 
-prompt = st.chat_input("Fale alguma coisa")
+
 choice = st.radio('Qual modelo',['Llamma 3-rag','Llamma 3-puro','ChatGPT4o'])
 choice2=st.radio('Qual Area',['Carros','Juridica'])
 
 if choice2=='Carros':
       INDEX_NAME='ragconsultor'
-if choice2=='Juridica':
+elif choice2=='Juridica':
       INDEX_NAME='rag-comprimento-sentenca-large'
 
 if choice == 'Llamma 3-rag':
         st.write('LLAMA 3')
+        prompt = st.chat_input("Fale alguma coisa",key='Chat')
         if prompt:
             st.write(f" {prompt}")
 
@@ -27,6 +28,7 @@ if choice == 'Llamma 3-rag':
 
 if choice == 'Llamma 3-puro':
         st.write('LLAMA 3')
+        prompt = st.chat_input("Fale alguma coisa",key='Chat')
         if prompt:
             st.write(f" {prompt}")
 
@@ -41,6 +43,7 @@ if choice == 'Llamma 3-puro':
 
 if choice == 'ChatGPT4o':
         st.write('ChatGPT4o')
+        prompt = st.chat_input("Fale alguma coisa",key='Chat')
         if prompt:
             st.write(f" {prompt}")
 

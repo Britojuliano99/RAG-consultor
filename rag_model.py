@@ -29,12 +29,24 @@ def get_embedding(text: str, model="text-embedding-3-large", **kwargs) -> List[f
     response = client_OpenAI.embeddings.create(input=[text], model=model, **kwargs)
 
     return response.data[0].embedding
+def get_embedding_small(text: str, model="text-embedding-3-small", **kwargs) -> List[float]:
+    # replace newlines, which can negatively affect performance.
+    text = text.replace("\n", " ")
+
+    response = client_OpenAI.embeddings.create(input=[text], model=model, **kwargs)
+
+    return response.data[0].embedding
 
 
 def similares(text):
     try:
-        embeddings=get_embedding(text)
+        
         index = pc.Index(INDEX_NAME)
+        if INDEX_NAME=='rag-comprimento-sentenca-large':
+            embeddings=get_embedding(text)
+        elif INDEX_NAME=='ragConsultor':
+            embeddings=get_embedding_small(text)
+        
         query=index.query(
             vector=embeddings,
             top_k=3,
@@ -44,8 +56,10 @@ def similares(text):
         textos_similares=[]
         for matches in query['matches']:
             textos_similares.extend(matches['metadata']['texto'])
-
+        
+        
         return textos_similares
+
     except Exception as e:
         print(e)
 
