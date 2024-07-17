@@ -3,14 +3,16 @@ from rag_model import *
 
 INDEX_NAME=''
 
-
-choice = st.radio('Qual modelo',['Llamma 3-rag','Llamma 3-puro','ChatGPT4o'])
-choice2=st.radio('Qual Area',['Carros','Juridica'])
+choice = st.radio('Qual modelo',['Llamma 3-rag','Llamma 3-puro','ChatGPT4o'],key='Modelo')
+choice2=st.radio('Qual Area',['Carros','Juridica','Local'],key='RAG')
 
 if choice2=='Carros':
       INDEX_NAME='ragconsultor'
 elif choice2=='Juridica':
       INDEX_NAME='rag-comprimento-sentenca-large'
+elif choice2=='Local':
+      INDEX_NAME='rag-embed-local'
+
 
 if choice == 'Llamma 3-rag':
         st.write('LLAMA 3')

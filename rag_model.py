@@ -6,14 +6,14 @@ from pinecone.grpc import PineconeGRPC as Pinecone
 from pinecone import ServerlessSpec
 import streamlit as st
 from app import INDEX_NAME
-#rom chaves import *
+#from chaves import *
+
+from sentence_transformers import SentenceTransformer
 
 
 API_KEY_PINECONE = st.secrets['API_KEY_PINECONE']
 OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 GROQ_API_KEY= st.secrets['GROQ_API_KEY']
-
-client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
 
 pc = Pinecone(api_key=API_KEY_PINECONE)
 
@@ -23,7 +23,13 @@ client_Groq = Groq(
     api_key=GROQ_API_KEY,
 )
 
+def get_embedding_local(text: str, model='sentence-transformers/all-MiniLM-L6-v2'):
+    model = SentenceTransformer(model)
+    embeddings = model.encode(text)
+
+    return embeddings
 def get_embedding(text: str, model="text-embedding-3-large", **kwargs) -> List[float]:
+    client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
     # replace newlines, which can negatively affect performance.
     text = text.replace("\n", " ")
 
@@ -31,6 +37,7 @@ def get_embedding(text: str, model="text-embedding-3-large", **kwargs) -> List[f
 
     return response.data[0].embedding
 def get_embedding_small(text: str, model="text-embedding-3-small", **kwargs) -> List[float]:
+    client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
     # replace newlines, which can negatively affect performance.
     text = text.replace("\n", " ")
 
@@ -47,6 +54,8 @@ def similares(text):
             embeddings=get_embedding(text)
         elif INDEX_NAME=='ragconsultor':
             embeddings=get_embedding_small(text)
+        elif INDEX_NAME=='rag-embed-local':
+            embeddings=get_embedding_local(text)
         
         query=index.query(
             vector=embeddings,
