@@ -1,8 +1,16 @@
 import streamlit as st
 from rag_model import *
 
+INDEX_NAME=''
+
 prompt = st.chat_input("Fale alguma coisa")
 choice = st.radio('Qual modelo',['Llamma 3-rag','Llamma 3-puro','ChatGPT4o'])
+choice2=st.radio('Qual Area',['Carros','Juridica'])
+
+if choice2=='Carros':
+      INDEX_NAME='ragconsultor'
+if choice2=='Juridica':
+      INDEX_NAME='rag-comprimento-sentenca-large'
 
 if choice == 'Llamma 3-rag':
         st.write('LLAMA 3')

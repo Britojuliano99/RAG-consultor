@@ -5,6 +5,7 @@ from openai import OpenAI
 from pinecone.grpc import PineconeGRPC as Pinecone
 from pinecone import ServerlessSpec
 import streamlit as st
+from app import INDEX_NAME
 
 
 API_KEY_PINECONE = st.secrets['API_KEY_PINECONE']
@@ -15,7 +16,7 @@ client_OpenAI = OpenAI(api_key=OPENAI_API_KEY)
 
 pc = Pinecone(api_key=API_KEY_PINECONE)
 
-index_name="rag-comprimento-sentenca-large
+
 
 client_Groq = Groq(
     api_key=GROQ_API_KEY,
@@ -33,7 +34,7 @@ def get_embedding(text: str, model="text-embedding-3-large", **kwargs) -> List[f
 def similares(text):
     try:
         embeddings=get_embedding(text)
-        index = pc.Index(index_name)
+        index = pc.Index(INDEX_NAME)
         query=index.query(
             vector=embeddings,
             top_k=3,
