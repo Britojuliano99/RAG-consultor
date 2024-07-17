@@ -20,7 +20,8 @@ if choice == 'Llamma 3-rag':
 
             message = st.chat_message("assistant")
             message.write("Ola vou ajudar com sua pergunta")
-
+            
+            st.write(similares(prompt))
 
             resposta = chat_llama_rag(prompt)
 
@@ -50,6 +51,7 @@ if choice == 'ChatGPT4o':
             message = st.chat_message("assistant")
             message.write("Ola vou ajudar com sua pergunta")
 
+            st.write(similares(prompt))
 
             resposta = chat_gpt_rag(prompt)
 
