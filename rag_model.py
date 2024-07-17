@@ -44,7 +44,7 @@ def similares(text):
         index = pc.Index(INDEX_NAME)
         if INDEX_NAME=='rag-comprimento-sentenca-large':
             embeddings=get_embedding(text)
-        elif INDEX_NAME=='ragConsultor':
+        elif INDEX_NAME=='ragconsultor':
             embeddings=get_embedding_small(text)
         
         query=index.query(
