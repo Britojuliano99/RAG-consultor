@@ -1,58 +1,57 @@
 import streamlit as st
 from rag_model import *
 
-INDEX_NAME=''
+INDEX_NAME = ''
 
+choice = st.radio('Qual modelo', ['Llamma 3-rag', 'Llamma 3-puro', 'ChatGPT4o'], key='Modelo')
+choice2 = st.radio('Qual Area', ['Carros', 'Juridica', 'Local'], key='RAG')
 
-choice = st.radio('Qual modelo',['Llamma 3-rag','Llamma 3-puro','ChatGPT4o'])
-choice2=st.radio('Qual Area',['Carros','Juridica'])
-
-if choice2=='Carros':
-      INDEX_NAME='ragconsultor'
-elif choice2=='Juridica':
-      INDEX_NAME='rag-comprimento-sentenca-large'
+if choice2 == 'Carros':
+    INDEX_NAME = 'ragconsultor'
+elif choice2 == 'Juridica':
+    INDEX_NAME = 'rag-comprimento-sentenca-large'
+elif choice2 == 'Local':
+    INDEX_NAME = 'rag-embed-local'
 
 if choice == 'Llamma 3-rag':
-        st.write('LLAMA 3')
-        prompt = st.chat_input("Fale alguma coisa",key='Chat')
-        if prompt:
-            st.write(f" {prompt}")
+    st.write('LLAMA 3')
+    prompt = st.chat_input("Fale alguma coisa", key='Chat')
+    if prompt:
+        st.write(f" {prompt}")
 
-            message = st.chat_message("assistant")
-            message.write("Ola vou ajudar com sua pergunta")
-            
-            st.write(similares(prompt))
+        message = st.chat_message("assistant")
+        message.write("Ola vou ajudar com sua pergunta")
 
-            resposta = chat_llama_rag(prompt)
+        st.write(similares(prompt))
 
-            message.write(resposta)
+        resposta = chat_llama_rag(prompt)
+
+        message.write(resposta)
 
 if choice == 'Llamma 3-puro':
-        st.write('LLAMA 3')
-        prompt = st.chat_input("Fale alguma coisa",key='Chat')
-        if prompt:
-            st.write(f" {prompt}")
+    st.write('LLAMA 3')
+    prompt = st.chat_input("Fale alguma coisa", key='Chat')
+    if prompt:
+        st.write(f" {prompt}")
 
-            message = st.chat_message("assistant")
-            message.write("Ola vou ajudar com sua pergunta")
+        message = st.chat_message("assistant")
+        message.write("Ola vou ajudar com sua pergunta")
 
+        resposta = chat_llama_sem_rag(prompt)
 
-            resposta = chat_llama_sem_rag(prompt)
-
-            message.write(resposta)
-
+        message.write(resposta)
 
 if choice == 'ChatGPT4o':
-        st.write('ChatGPT4o')
-        prompt = st.chat_input("Fale alguma coisa",key='Chat')
-        if prompt:
-            st.write(f" {prompt}")
+    st.write('ChatGPT4o')
+    prompt = st.chat_input("Fale alguma coisa", key='Chat')
+    if prompt:
+        st.write(f" {prompt}")
 
-            message = st.chat_message("assistant")
-            message.write("Ola vou ajudar com sua pergunta")
+        message = st.chat_message("assistant")
+        message.write("Ola vou ajudar com sua pergunta")
 
-            st.write(similares(prompt))
+        st.write(similares(prompt))
 
-            resposta = chat_gpt_rag(prompt)
+        resposta = chat_gpt_rag(prompt)
 
-            message.write(resposta)
+        message.write(resposta)
